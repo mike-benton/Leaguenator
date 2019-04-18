@@ -1,13 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>THE LEAGUENATOR</title>
-	<link rel="icon" href="kevin_icon.ico">
-  <!-- <link rel="stylesheet" href="style/stylesheet.css" type="text/css"> -->
-  </head>
-  <body>
-	<h1> HI KEVIN </h1>
-  
-  </body>
+    <head>
+        <meta charset="UTF-8">
+        <title>THE LEAGUENATOR</title>
+        <link rel="icon" href="kevin_icon.ico">
+        <!-- <link rel="stylesheet" href="style/stylesheet.css" type="text/css"> -->
+
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <link
+          type="text/css"
+          rel="stylesheet"
+          href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"
+        />
+        <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
+        <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+        <script src="scripts.js"></script>
+
+
+        <!--<script src="https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/RiotSchmick?api_key=RGAPI-c90a6ee2-aef5-4bdb-b4fb-834ae9636466"></script>-->
+
+    </head>
+    
+    
+    <body>
+    <h1> HI KEVIN </h1>
+
+    <input type="text" placeholder="Summoner Name"/>
+    <button id="searchName" type="submit">Search</button>
+
+        
+    <table class="table table-striped table-sm">
+        <tr>
+            <th>Champion</th>
+            <th>Times Played</th>
+        </tr>
+        <tr v-for="result in results">
+            <!--Name based on LOL API
+            <td>{{result.name}}</td>-->
+        </tr>
+        <tr v-for="result in results">
+            <!--Name based on LOL API
+            <td>Games Played</td>-->
+        </tr>
+    </table>
+
+    </body>
 </html>
