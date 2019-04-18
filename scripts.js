@@ -13,7 +13,7 @@ request.onload = function()
 
 request.send();*/
 
-
+/*
 const app = new Vue({
 	el: '#app',
 	data:
@@ -45,5 +45,36 @@ const app = new Vue({
 			console.log(json);
 		})
 	   }, // end search
+	} // end methods
+});*/
+
+
+const twitchURL = "https://api.twitch.tv/kraken";
+const clientID = "4gqmz463yaeixhvuvwuposq1j5maxb";
+
+const app = new Vue({
+	el: '#app',
+	data:
+    {
+        title:"Top League of Legends Streams"
+	},
+	mounted() {
+		this.displayStreams();
+	},
+	methods:{
+		displayStreams: function() {
+			url = twitchURL + "/streams/?game=League of Legends" + "&client_id=" + clientID;
+			$.getJSON(url, function(data) {
+				let streamer = "";
+				let streamURL = "";
+				for (let i = 0; i < 25; i++) {
+					streamer = data.streams[i].channel.name;
+					streamURL = "http://twitch.tv/" + streamer;
+					streamer = streamer.charAt(0).toUpperCase() + streamer.slice(1);
+					document.querySelector('#streams').innerHTML += "<li> <a href='" + streamURL + "'>" + streamer + '</a>' + ' (Current Viewers: ' + data.streams[i].viewers + ')</li>';
+					
+				}
+			});
+		}
 	} // end methods
 });

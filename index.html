@@ -15,7 +15,7 @@
         <script src="https://unpkg.com/@babel/polyfill@latest/dist/polyfill.min.js"></script>
         <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
         <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
-
+		<script src="jquery-3.4.0.min.js"></script>
         <script src="scripts.js"></script>
 
 
@@ -25,8 +25,13 @@
     
     
     <body>
-    <h1> HI KEVIN </h1>
-
+    <h1> CURRENT LEAGUE OF LEGENDS TWITCH STREAMS </h1>
+	
+	<ol id="streams">
+		
+	</ol>
+	
+	<!--
     <input type="text" placeholder="Summoner Name"/>
     <button id="searchName" type="submit">Search</button>
 
@@ -38,13 +43,12 @@
         </tr>
         <tr v-for="result in results">
             <!--Name based on LOL API
-            <td>{{result.name}}</td>-->
+            <td>{{result.name}}</td>
         </tr>
         <tr v-for="result in results">
             <!--Name based on LOL API
-            <td>Games Played</td>-->
+            <td>Games Played</td>
         </tr>
-    </table>
-
+    </table>-->
     </body>
 </html>
