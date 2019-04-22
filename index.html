@@ -7,6 +7,7 @@
         <!-- <link rel="stylesheet" href="style/stylesheet.css" type="text/css"> -->
 
         <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="styles.css">
         <link
           type="text/css"
           rel="stylesheet"
@@ -27,28 +28,33 @@
     <body>
     <h1> CURRENT LEAGUE OF LEGENDS TWITCH STREAMS </h1>
 	
-	<ol id="streams">
-		
-	</ol>
-	
-	<!--
-    <input type="text" placeholder="Summoner Name"/>
-    <button id="searchName" type="submit">Search</button>
-
+    <div class="column">
         
-    <table class="table table-striped table-sm">
-        <tr>
-            <th>Champion</th>
-            <th>Times Played</th>
-        </tr>
-        <tr v-for="result in results">
-            <!--Name based on LOL API
-            <td>{{result.name}}</td>
-        </tr>
-        <tr v-for="result in results">
-            <!--Name based on LOL API
-            <td>Games Played</td>
-        </tr>
-    </table>-->
+        <input type="text" placeholder="Summoner Name" id="summonerNameInput"/>
+        <button id="searchName" type="submit" onclick="app.getLeagueData()">Search</button>
+
+
+        <table class="table table-striped table-sm">
+            <!--<tr>
+                <th>Champion</th>
+                <th>Times Played</th>
+            </tr>
+            <tr v-for="result in results">
+                <!--Name based on LOL API-->
+                <!--<td>{{result.name}}</td>
+            </tr>
+            <tr v-for="result in results">
+                <!--Name based on LOL API-->
+                <!--<td>Games Played</td>
+            </tr>-->
+        </table>
+    </div> 
+        
+    <div class="column">
+        <ol id="streams">
+
+        </ol>
+    </div>
+	
     </body>
 </html>
