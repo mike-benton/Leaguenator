@@ -13,41 +13,6 @@ request.onload = function()
 
 request.send();*/
 
-/*
-const app = new Vue({
-	el: '#app',
-	data:
-    {
-        title:"League of Legends Champion Streams",
-        results: ""
-	},
-    created()
-    {
-        this.search();
-    },
-	methods:{
-	search(){
-		//if (! this.term.trim()) return;
-        let url = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/RiotSchmick?api_key=";
-        let key="RGAPI-c90a6ee2-aef5-4bdb-b4fb-834ae9636466";
-		fetch(url,
-            {
-                'X_CMC_PRO_API_KEY': key
-            })
-		.then(response => {
-			if(!response.ok){
-				throw Error(`ERROR: ${response.statusText}`);
-			}
-			return response.json();
-		})
-		.then(json => {
-            this.results = json;
-			console.log(json);
-		})
-	   }, // end search
-	} // end methods
-});*/
-
 
 //Twitch Info
 const twitchURL = "https://api.twitch.tv/kraken";
@@ -55,8 +20,10 @@ const clientID = "4gqmz463yaeixhvuvwuposq1j5maxb";
 
 //League Info
 const leagueURL = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
-let summonerName = "RiotSchmick";
-const leagueKey = "?api_key=RGAPI-c90a6ee2-aef5-4bdb-b4fb-834ae9636466";//Key needs to be updated every 24 hours
+let summonerName = "Jeporite";
+const leagueKey = "?api_key=RGAPI-a5d00c76-3b77-4032-987d-5e6daf6b0d13";//Key needs to be updated every 24 hours
+
+let proxy = 'league-proxy.php';	
 
 const app = new Vue({
 	el: '#app',
@@ -91,6 +58,18 @@ const app = new Vue({
             {
                 summonerName = "RiotSchmick";
             }
+			
+			//let query = encodeURIComponent("summonerName") + "=" + encodeURIComponent(summonerName);
+			//let proxy_url = proxy + '?' + query;
+			//console.log(proxy_url);
+			
+			/**$.ajax({
+			type: "GET",
+			url: proxy,
+			data: {'summonerName': summonerName}
+			});**/
+			
+			
             url = leagueURL + summonerName + leagueKey;
             $.getJSON(url, function(data){
                     console.log(data.name);
