@@ -19,11 +19,14 @@ const twitchURL = "https://api.twitch.tv/kraken";
 const clientID = "4gqmz463yaeixhvuvwuposq1j5maxb";
 
 //League Info
-const leagueURL = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
+const leagueURL = "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
 let summonerName = "Jeporite";
-const leagueKey = "?api_key=RGAPI-a5d00c76-3b77-4032-987d-5e6daf6b0d13";//Key needs to be updated every 24 hours
+const leagueKey = "?api_key=RGAPI-e4dc8f50-7902-4d75-85e5-c9a5185c8f65";//Key needs to be updated every 24 hours
 
-let proxy = 'league-proxy.php';	
+const leagueMatchURL = "https://cors-anywhere.herokuapp.com/https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/";
+let leagueAccountId = "";
+
+let proxy = 'league-proxy.php';
 
 const app = new Vue({
 	el: '#app',
@@ -35,6 +38,8 @@ const app = new Vue({
 		this.displayStreams();
 	},
 	methods:{
+        
+        //Twitch Stream Data
 		displayStreams: function() {
 			url = twitchURL + "/streams/?game=League of Legends" + "&client_id=" + clientID;
 			$.getJSON(url, function(data) {
@@ -49,6 +54,8 @@ const app = new Vue({
 				}
 			});
 		},
+        
+        //LoL Account Data
         getLeagueData: function(){
             if(document.querySelector("#summonerNameInput").value != "")
                 {
@@ -74,6 +81,24 @@ const app = new Vue({
             $.getJSON(url, function(data){
                     console.log(data.name);
                     console.log(data.profileIconId);
+                    leagueAccountId = data.accountId;
+                    app.getLeagueMatchData();
+                })
+        },
+        
+        //LoL Match Data
+        getLeagueMatchData: function(){
+            url = leagueMatchURL + leagueAccountId + leagueKey;
+            $.getJSON(url, function(data){
+                    document.querySelector("#matchHistory").innerHTML = "<tr><th>#</th><th>Champion</th><th>Role</th><th>Timestamp</th></tr>";
+                    for(let i=0; i<document.querySelector("#searchLength").value; i++)
+                        {
+                            if(data.matches[i] != null)
+                                {
+                                    document.querySelector("#matchHistory").innerHTML += "<tr><th>" + (i + 1) + "<td>" + data.matches[i].champion + "</td><td>" + data.matches[i].role + "</td><td>" + data.matches[i].timestamp + "</td></tr>";
+                                }
+                        }
+                    console.log(data.matches);
                 })
         }
 	} // end methods
