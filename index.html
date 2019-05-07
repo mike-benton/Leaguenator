@@ -33,12 +33,15 @@
         <input type="text" placeholder="Summoner Name" id="summonerNameInput"/>
         <select id="searchLength" size="1">
             <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
+            <option value="10">25</option>
+            <option value="50">50</option>
+            <option value="75">75</option>
+            <option value="100">100</option>
         </select>
         <button id="searchName" type="submit" onclick="app.getLeagueData()">Search</button>
+        
+        <br>
+        <input type="text" placeholder="Champion Name" id="championNameInput"/>
 
 
         <table class="table table-sm table-bordered table-striped" id="matchHistory">

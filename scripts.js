@@ -98,7 +98,10 @@ const app = new Vue({
                         {
                             if(data.matches[i] != null)
                                 {
-                                    document.querySelector("#matchHistory").innerHTML += "<tr><th>" + (i + 1) + "<td>" + getChampionByID(data.matches[i].champion).name + "</td><td>" + data.matches[i].role + "</td><td>" + data.matches[i].timestamp + "</td></tr>";
+                                    if(document.querySelector("#championNameInput").value=="" || document.querySelector("#championNameInput").value==getChampionByID(data.matches[i].champion).name)
+                                        {
+                                            document.querySelector("#matchHistory").innerHTML += "<tr><th>" + (i + 1) + "<td>" + getChampionByID(data.matches[i].champion).name + "</td><td>" + data.matches[i].role + "</td><td>" + data.matches[i].timestamp + "</td></tr>";
+                                        }
                                 }
                         }
                     //console.log(data.matches);
