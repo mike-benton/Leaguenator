@@ -14,6 +14,8 @@ request.onload = function()
 request.send();*/
 
 
+
+
 //Twitch Info
 const twitchURL = "https://api.twitch.tv/kraken";
 const clientID = "4gqmz463yaeixhvuvwuposq1j5maxb";
@@ -30,6 +32,13 @@ const leagueCurrentPatch = 9.9;
 let leagueChampionData = "";
 let leagueAccountId = "";
 
+//Save Search terms
+const nameKey = "Name";
+const champKey = "Champion"
+const storedSummoner = localStorage.getItem(nameKey);
+const storedChampion = localStorage.getItem(champKey);
+let championName = "";
+
 const app = new Vue({
 	el: '#app',
 	data:
@@ -38,6 +47,14 @@ const app = new Vue({
 	},
 	mounted() {
 		this.displayStreams();
+        if(storedSummoner)
+            {
+                summonerName = storedSummoner;
+            }
+        if(storedChampion)
+            {
+                championName = storedChampion;
+            }
 	},
 	methods:{
         
@@ -62,6 +79,7 @@ const app = new Vue({
             if(document.querySelector("#summonerNameInput").value != "")
                 {
                     summonerName = document.querySelector("#summonerNameInput").value;
+                    championName = document.querySelector("#championNameInput").value;
                 }
             else
             {
@@ -81,11 +99,13 @@ const app = new Vue({
 			
             url = leagueURL + summonerName + leagueKey;
             $.getJSON(url, function(data){
-                    console.log(data.name);
-                    console.log(data.profileIconId);
+                    //console.log(data.name);
+                    //console.log(data.profileIconId);
                     leagueAccountId = data.accountId;
 					app.getChampionData();
                     app.getLeagueMatchData();
+                    localStorage.setItem(nameKey, summonerName);
+                    localStorage.setItem(champKey, championName);
                 })
         },
         
@@ -131,4 +151,13 @@ function getChampionByID(id) {
 			return leagueChampionData[i];
 		}
 	}
+}
+
+window.onload = function(e){
+    if(summonerName != null)
+        {
+            document.querySelector("#summonerNameInput").value = summonerName;
+            document.querySelector("#championNameInput").value = championName;
+            app.getLeagueData();
+        }
 }
