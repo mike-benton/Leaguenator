@@ -39,6 +39,9 @@ const storedSummoner = localStorage.getItem(nameKey);
 const storedChampion = localStorage.getItem(champKey);
 let championName = "";
 
+let championArr = [];
+let streamers = ["Imaqtpie", "Voyboy", "Scarra", "Nightblue3", "Aphromoo", "Shiphtur", "Meteos", "TFBlade"];
+
 const app = new Vue({
 	el: '#app',
 	data:
@@ -104,6 +107,12 @@ const app = new Vue({
                     leagueAccountId = data.accountId;
 					app.getChampionData();
                     app.getLeagueMatchData();
+					app.initChampionArr();
+					
+					for (i in championArr) {
+						championArr[i].getSummonerList();
+					}
+					
                     localStorage.setItem(nameKey, summonerName);
                     localStorage.setItem(champKey, championName);
                 })
@@ -139,6 +148,34 @@ const app = new Vue({
 				
 				//console.log(data.data);
             })
+		},
+		
+		initChampionArr: function(){
+			url = leagueDataURL + leagueCurrentPatch + ".1/data/en_US/champion.json";
+			$.getJSON(url, function(data){
+				for (i in data.data) {
+					let champ = new Champion(data.data[i].id, data.data[i].key);
+					championArr[data.data[i].key] = champ;
+				}
+				
+				
+			})
+			
+				
+			for (let i = 0; i < streamers.length; i++) {
+				let streamerID = "";
+				url = leagueURL + streamers[i] + leagueKey;
+				$.getJSON(url, function(data){
+					streamerID = data.accountId;
+					url = leagueMatchURL + streamerID + leagueKey;
+					$.getJSON(url, function(data){
+						for (let j = 0; j < data.matches.length; j++) {
+							championArr[data.matches[j].champion].addSummoner(streamers[i]);
+						}
+					})
+				})
+			}
+			
 		}
 		
 	} // end methods
@@ -150,6 +187,32 @@ function getChampionByID(id) {
 			//console.log(leagueChampionData[i]);
 			return leagueChampionData[i];
 		}
+	}
+}
+
+class Champion {
+	constructor(name, id) {
+		this.summonerList = [];
+		this.name = name;
+		this.id = id;
+	}
+	
+	addSummoner(name) {
+		if (name in this.summonerList) {
+			this.summonerList[name]++;
+		}
+		else {
+			this.summonerList[name] = 1;
+		}		
+	}
+	
+	getSummonerList() {
+		for (i in this.summonerList) {
+			if (this.summonerList[i] <= 2) { //Removes pro players with 2 or fewer games on the champion - casuals!
+				delete this.summonerList[i];
+			}
+		}
+		return this.summonerList;
 	}
 }
 
