@@ -1,0 +1,19 @@
+Documentation
+
+Mike Benton and Adam Ledet
+Leaguenator - a League of Legends Twitch Stream Recommender
+
+We split the workload very evenly - I implemented the Twitch API, Adam implemented the League API.
+I implemented the ES6 Custom Class.
+Adam implemented most of the AJAX calls.
+
+This project was hindered by the League API which offers a very low amount of requests per minute as well as making us get a new key every 24 hours.
+
+We used the League API and the Twitch API for this project.
+We used local storage to store the last term searched.
+
+We used Vue.js as our MVVM Framework.
+
+I would grade ourselves an 80% on this project.
+This is taking into account a -5% for using querySelector and a -10% for missing cloud storage.
+I believe the webapp itself does some neat things and we definitely challenged ourselves with the League API.
